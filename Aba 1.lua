@@ -29,26 +29,26 @@ return function(ContentContainer, LocalPlayer, Players, RunService, MarketplaceS
     -- Função auxiliar para criar botões
     local function createButton(text, callback, parent)
         local button = Instance.new("TextButton")
-        button.Size = UDim2.new(1, -20, 0, 35)
-        button.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+        button.Size = UDim2.new(1, -20, 0, 40)
+        button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
         button.Text = text
         button.TextColor3 = Color3.fromRGB(255, 255, 255)
         button.Font = Enum.Font.GothamBold
-        button.TextSize = 14
+        button.TextSize = 18
         button.Parent = parent
         
         local buttonCorner = Instance.new("UICorner")
-        buttonCorner.CornerRadius = UDim.new(0, 5)
+        buttonCorner.CornerRadius = UDim.new(0, 8)
         buttonCorner.Parent = button
         
         button.MouseButton1Click:Connect(callback)
         
         button.MouseEnter:Connect(function()
-            button.BackgroundColor3 = Color3.fromRGB(0, 140, 255)
+            button.BackgroundColor3 = Color3.fromRGB(0, 140, 235)
         end)
         
         button.MouseLeave:Connect(function()
-            button.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
+            button.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
         end)
         
         return button
@@ -56,28 +56,49 @@ return function(ContentContainer, LocalPlayer, Players, RunService, MarketplaceS
 
     -- CONTEÚDO DA ABA CRÉDITOS
 
-    -- Discord
-    createLabel("Discord", ContentContainer, 18, true)
-    createSpacer(5, ContentContainer)
-
-    local discordLabel = createLabel("https://discord.gg/PDc8bHsT", ContentContainer, 14, false)
-    discordLabel.TextColor3 = Color3.fromRGB(88, 101, 242)
+    -- Link do Discord (pequeno no topo)
+    local discordLinkTop = createLabel("https://discord.gg/PDc8bHsT", ContentContainer, 12, false)
+    discordLinkTop.TextColor3 = Color3.fromRGB(200, 200, 200)
+    discordLinkTop.TextXAlignment = Enum.TextXAlignment.Center
 
     createSpacer(10, ContentContainer)
 
-    -- Imagem do Discord
-    local discordImage = Instance.new("ImageLabel")
-    discordImage.Size = UDim2.new(0, 150, 0, 150)
-    discordImage.Position = UDim2.new(0.5, -75, 0, 0)
-    discordImage.BackgroundTransparency = 1
-    discordImage.Image = "rbxassetid://110586608819666"
-    discordImage.ScaleType = Enum.ScaleType.Fit
-    discordImage.Parent = ContentContainer
+    -- Box com ID da imagem
+    local imageIdBox = Instance.new("Frame")
+    imageIdBox.Size = UDim2.new(0, 300, 0, 80)
+    imageIdBox.Position = UDim2.new(0.5, -150, 0, 0)
+    imageIdBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    imageIdBox.BorderSizePixel = 0
+    imageIdBox.Parent = ContentContainer
 
-    createSpacer(160, ContentContainer)
+    local imageIdCorner = Instance.new("UICorner")
+    imageIdCorner.CornerRadius = UDim.new(0, 5)
+    imageIdCorner.Parent = imageIdBox
 
-    -- Botão Copiar Link
-    createButton("Copiar Link do Discord", function()
+    local imageIdLabel = Instance.new("TextLabel")
+    imageIdLabel.Size = UDim2.new(1, 0, 1, 0)
+    imageIdLabel.BackgroundTransparency = 1
+    imageIdLabel.Text = "Id da imagem:\n110586608819666"
+    imageIdLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    imageIdLabel.Font = Enum.Font.GothamBold
+    imageIdLabel.TextSize = 24
+    imageIdLabel.Parent = imageIdBox
+
+    createSpacer(90, ContentContainer)
+
+    -- Título Godzilla Hub
+    local titleLabel = createLabel("Godzilla Hub", ContentContainer, 24, true)
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+
+    -- Link do Discord (abaixo do título)
+    local discordLinkBottom = createLabel("https://discord.gg/PDc8bHsT", ContentContainer, 12, false)
+    discordLinkBottom.TextColor3 = Color3.fromRGB(200, 200, 200)
+    discordLinkBottom.TextXAlignment = Enum.TextXAlignment.Center
+
+    createSpacer(10, ContentContainer)
+
+    -- Botão Copy Link
+    createButton("Copy Link", function()
         setclipboard("https://discord.gg/PDc8bHsT")
         game.StarterGui:SetCore("SendNotification", {
             Title = "Godzilla Hub";
@@ -86,95 +107,47 @@ return function(ContentContainer, LocalPlayer, Players, RunService, MarketplaceS
         })
     end, ContentContainer)
 
-    createSpacer(15, ContentContainer)
+    createSpacer(20, ContentContainer)
 
     -- Informações do Script
-    createLabel("Informações do Script", ContentContainer, 18, true)
+    createLabel("Informações do Script", ContentContainer, 20, true)
     createSpacer(5, ContentContainer)
-    createLabel("Criadores: sereireconhecido, Godzilla_eoking1", ContentContainer, 12, false)
-    createLabel("Organização: Godzilla Studios", ContentContainer, 12, false)
-
-    createSpacer(15, ContentContainer)
-
-    -- Informações do Jogador
-    createLabel("Suas Informações", ContentContainer, 18, true)
+    createLabel("Criadores:", ContentContainer, 14, true)
+    createLabel("sereireconhecido", ContentContainer, 14, false)
+    createLabel("Godzilla_eoking1", ContentContainer, 14, false)
     createSpacer(5, ContentContainer)
+    createLabel("By:", ContentContainer, 14, true)
+    createLabel("Godzilla Studios", ContentContainer, 14, false)
+    createSpacer(5, ContentContainer)
+    createLabel("Você está usando:", ContentContainer, 14, true)
+    createLabel("Godzilla Hub", ContentContainer, 14, false)
+    createSpacer(5, ContentContainer)
+    createLabel("Executor Utilizado:", ContentContainer, 14, true)
+    createLabel("(Nome do Executor)", ContentContainer, 14, false)
 
-    -- Data e Hora
-    createLabel("Data: " .. os.date("%d/%m/%Y"), ContentContainer, 12, false)
-    local timeLabel = createLabel("Hora: " .. os.date("%H:%M:%S"), ContentContainer, 12, false)
+    createSpacer(20, ContentContainer)
 
-    -- Atualizar hora em tempo real
-    spawn(function()
-        while ContentContainer and timeLabel and timeLabel.Parent do
-            timeLabel.Text = "Hora: " .. os.date("%H:%M:%S")
-            wait(1)
-        end
-    end)
+    -- Informações
+    createLabel("Informações", ContentContainer, 20, true)
+    createSpacer(5, ContentContainer)
+    createLabel("Hoje é dia:", ContentContainer, 14, true)
+    createLabel("(Dia do exato momento)", ContentContainer, 14, false)
+    createSpacer(3, ContentContainer)
+    createLabel("Seu Nickname: (NickName do jogador)", ContentContainer, 14, true)
+    createSpacer(3, ContentContainer)
+    createLabel("Seu ID:(ID do jogador)", ContentContainer, 14, true)
+    createSpacer(3, ContentContainer)
+    createLabel("Seu Jogo:", ContentContainer, 14, true)
+    createLabel("(Nome do jogo que o jogador está)", ContentContainer, 14, false)
+    createSpacer(3, ContentContainer)
+    createLabel("Tempo de uso do script:", ContentContainer, 14, true)
+    createLabel("(Tempo de uso do script)", ContentContainer, 14, false)
+    createSpacer(3, ContentContainer)
+    createLabel("Seu Fps:", ContentContainer, 14, true)
+    createLabel("(Fps do jogador)", ContentContainer, 14, false)
+    createSpacer(3, ContentContainer)
+    createLabel("Quantidade de jogadores no serv", ContentContainer, 14, true)
+    createLabel("(Quantidade de jogadores)", ContentContainer, 14, false)
 
-    -- Apelido
-    createLabel("Apelido: " .. LocalPlayer.Name, ContentContainer, 12, false)
-
-    -- User ID
-    createLabel("User ID: " .. LocalPlayer.UserId, ContentContainer, 12, false)
-
-    -- Nome do Jogo
-    local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
-    createLabel("Jogo: " .. gameInfo.Name, ContentContainer, 12, false)
-
-    -- Tempo usando o script
-    local usageLabel = createLabel("Tempo de uso: 0s", ContentContainer, 12, false)
-
-    spawn(function()
-        while ContentContainer and usageLabel and usageLabel.Parent do
-            local elapsed = math.floor(tick() - startTime)
-            local minutes = math.floor(elapsed / 60)
-            local seconds = elapsed % 60
-            usageLabel.Text = string.format("Tempo de uso: %dm %ds", minutes, seconds)
-            wait(1)
-        end
-    end)
-
-    -- FPS
-    local fpsLabel = createLabel("FPS: 0", ContentContainer, 12, false)
-
-    spawn(function()
-        local lastTime = tick()
-        local frameCount = 0
-        
-        local connection
-        connection = RunService.RenderStepped:Connect(function()
-            if not ContentContainer or not fpsLabel or not fpsLabel.Parent then
-                connection:Disconnect()
-                return
-            end
-            
-            frameCount = frameCount + 1
-            
-            local currentTime = tick()
-            if currentTime - lastTime >= 1 then
-                fpsLabel.Text = "FPS: " .. frameCount
-                frameCount = 0
-                lastTime = currentTime
-            end
-        end)
-    end)
-
-    -- Jogadores no servidor
-    local playerCountLabel = createLabel("Jogadores: " .. #Players:GetPlayers() .. "/" .. Players.MaxPlayers, ContentContainer, 12, false)
-
-    Players.PlayerAdded:Connect(function()
-        if ContentContainer and playerCountLabel and playerCountLabel.Parent then
-            playerCountLabel.Text = "Jogadores: " .. #Players:GetPlayers() .. "/" .. Players.MaxPlayers
-        end
-    end)
-
-    Players.PlayerRemoving:Connect(function()
-        wait(0.1)
-        if ContentContainer and playerCountLabel and playerCountLabel.Parent then
-            playerCountLabel.Text = "Jogadores: " .. #Players:GetPlayers() .. "/" .. Players.MaxPlayers
-        end
-    end)
-
-    print("✅ Aba Créditos carregada com sucesso!")
+    print("✅ Aba Créditos carregada!")
 end
